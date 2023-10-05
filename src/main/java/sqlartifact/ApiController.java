@@ -42,7 +42,6 @@ public class ApiController {
 			@RequestParam("subject1") String subject1, 
 			@RequestParam("subject2") String subject2, 
 			@RequestParam("subject3") String subject3 ) {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -55,7 +54,6 @@ public class ApiController {
 	         query = "INSERT INTO user_details(`name`, `subject1`, `subject2`,"
 	         		+ " `subject3`) VALUES(?, ?, ?, ?)";
 	         pstmt = con.prepareStatement(query);
-//	         pstmt.setInt(1, Integer.parseInt(userId));
 	         pstmt.setString(1, name);
 	         pstmt.setString(2, subject1);
 	         pstmt.setString(3, subject2);
@@ -67,14 +65,12 @@ public class ApiController {
 	        	 res = Json.createObjectBuilder()
 	        			 .add("status", true)
 	        			 .add("message", "success");
-//	        	 return "{status: true, message: success, batchId: "+batchMapped+"}";
 	         }
 	         else {
 	        	 con.close();
 	        	 res = Json.createObjectBuilder()
 	        			 .add("status", false)
 	        			 .add("message", "error");
-//	        	 return "{status: true, message: batch_id_not_mapped, batchId: not mapped}";
 	         }
 	         
 			}catch(Exception e) {
@@ -91,7 +87,6 @@ public class ApiController {
 	@RequestMapping(value="/get", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getAll() {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -115,14 +110,12 @@ public class ApiController {
 	         ResultSet result = pstmt.executeQuery(query);
 	         System.out.println(result);
 	         while(result.next()) {
-//	        	 con.close();
 	        	 id.add(result.getString("id"));
 	        	 name.add(result.getString("name"));
 	        	 subject1.add(result.getString("subject1"));
 	        	 subject2.add(result.getString("subject2"));
 	        	 subject3.add(result.getString("subject3"));
 	        	 average.add(result.getString("average"));
-//	        	 return "{status: true, message: success, batchId: "+batchMapped+"}";
 	         }
 	         con.close();
 	         String nameJson = gson.toJson(name);
@@ -140,14 +133,7 @@ public class ApiController {
 	        	 .add("subject1", subject1Json)
 	        	 .add("subject2", subject2Json)
 	        	 .add("subject3", subject3Json)
-	        	 .add("average", averageJson);
-//	         else {
-//	        	 con.close();
-//	        	 res = Json.createObjectBuilder()
-//	        			 .add("status", false)
-//	        			 .add("message", "error");
-////	        	 return "{status: true, message: batch_id_not_mapped, batchId: not mapped}";
-//	         }
+	        	 .add("average", averageJson);	        
 	         
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -163,7 +149,7 @@ public class ApiController {
 	@RequestMapping(value="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String delete(@PathVariable("id") String id) {
-		// System.out.println(userId);
+		
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -177,7 +163,7 @@ public class ApiController {
 	         String query = null;
 	         query = "DELETE FROM `user_details` where `id`="+id;
 	         pstmt = con.prepareStatement(query);
-//	         pstmt.setInt(1,Integer.parseInt(id));
+
 	         int result = pstmt.executeUpdate();
 	         System.out.println(result);
 	         if(result>0) {
@@ -207,7 +193,6 @@ public class ApiController {
 	@RequestMapping(value="/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getById(@PathVariable("id") String id) {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -258,7 +243,6 @@ public class ApiController {
 			@RequestParam("subject1") String subject1, 
 			@RequestParam("subject2") String subject2, 
 			@RequestParam("subject3") String subject3) {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -308,7 +292,6 @@ public class ApiController {
 	public String operations( 
 			@RequestParam("function") 	String function, 
 			@RequestParam("subject") String subject) {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
@@ -323,12 +306,6 @@ public class ApiController {
 	         else	
 	        	 query = "SELECT "+function+"("+subject+") as subject FROM `user_details`";
 	         pstmt = con.prepareStatement(query);
-//	         pstmt.setString(1, name);
-//	         pstmt.setString(2, subject1);
-//	         pstmt.setString(3, subject2);
-//	         pstmt.setString(4, subject3);
-//	         pstmt.setInt(5,Integer.parseInt(id));
-//	         System.out.println();
 	         ResultSet result = pstmt.executeQuery();
 	         System.out.println(result);
 	         if(result.next()) {
@@ -430,7 +407,6 @@ public class ApiController {
 			@RequestParam("filter") 	String filter, 
 			@RequestParam("subject") String subject,
 			@RequestParam("marks") String marks) {
-		// System.out.println(userId);
 		DataSource ds;
 		Connection con;
 		JsonObjectBuilder res = Json.createObjectBuilder();
